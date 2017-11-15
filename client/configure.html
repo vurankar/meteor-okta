@@ -1,0 +1,25 @@
+<template name="configureLoginServiceDialogForOkta">
+    <p>
+        First, you'll need to get a Okta Application Client ID and Client secret. Follow these steps:
+    </p>
+    <ol>
+        <li>
+            Visit <a href="https:okta.com" target="blank">https://okta.com</a> and login as admin to create an Okta app
+        </li>
+        <li>
+            Fill in the form to create your Okta Application
+        </li>
+        <li>
+            When redirected to the edit page, on the left sidebar, go to "API Settings"
+        </li>
+        <li>
+            Set Authorized Redirect URLs to: <span class="url">{{siteUrl}}</span>
+        </li>
+        <li>
+            Finish by clicking "Save"
+        </li>
+        <li>
+            On the left sidebar, go to "App Settings" to find the "Client ID" and "Client secret"
+        </li>
+    </ol>
+</template>
