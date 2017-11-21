@@ -74,8 +74,9 @@ var getLoginUrlOptions = function(loginStyle, credentialToken, config, options) 
             throw new Error('Okta.requestCredential: Invalid loginUrlParameter: ' + key);
         }
     });
-    //console.log("redirect  uri: %s", OAuth._redirectUri(Okta.serviceName, config));
-    //console.log("options.redirectUrl  : %s", options.redirectUrl);
+
+    //in your router get the initial url the user is trying to access and
+    //redirect the user back to that uri on successful authentication
     fromWhere = Session.get('fromWhere') || '';
     //delete the leading / because Meteor.absouluteURL adds one too
     fromWhere = fromWhere.replace('/','');

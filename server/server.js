@@ -27,20 +27,16 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
         };
 
         console.log("okta user profile:" + JSON.stringify(identity));
-    /*var fields = _.pick(identity, Okta.whitelistedFields);
-    _.extend(serviceData, fields);
-*/
 
     /*
     Meteor accounts requires id field but Okta does not provide an id attribute.
     Make sure to map a field of you convinence as id field. In my setup I have created an
     custom attribute called id
      */
-    //for testing purposes assign existing users id
-  if(!identity.id){
-      //throw new Error("Missing id field in okta profile");
-  }
-  identity.id = "abz9743w4foFnFu7Q";
+    if(!identity.id){
+        throw new Error("Missing id field in okta profile");
+    }
+
     _.extend(serviceData, identity);
 
     // only set the token in serviceData if it's there. this ensures
@@ -61,9 +57,6 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
 // - refreshToken, if this is the first authorization request
 var getTokens = function (query, config) {
 
-
-    
-    console.log("query is %s", JSON.stringify(query));
     var response;
     try {
         response = HTTP.post(
@@ -71,8 +64,7 @@ var getTokens = function (query, config) {
                 code: query.code,
                 client_id: config.clientId,
                 client_secret: OAuth.openSecret(config.secret),
-                redirect_uri: OAuth._redirectUri(Okta.serviceName, config),
-                //redirect_uri:"http://localhost:3000/_oauth/okta",
+                redirect_uri: OAuth._redirectUri(Okta.serviceName, config),  //whitelist the redirect uri in the Okta app, the value is <domain>/_oauth/okta?close
                 grant_type: 'authorization_code'
             }});
     } catch (err) {
@@ -94,8 +86,13 @@ var getTokens = function (query, config) {
     }
 };
 
+/**
+ * get user profile info using accessToken. This can also be found in the idToken, but this needs to be
+ * decoded from the JWTs
+ * @param accessToken
+ * @param config
+ */
 var getIdentity = function (accessToken, config) {
-    console.log("access token:" + accessToken);
     try {
         return HTTP.get(
 
