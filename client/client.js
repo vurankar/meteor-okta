@@ -30,8 +30,8 @@ Okta = {
 
         // Generate a token to be used in the state and the OAuth flow
         var credentialToken = Random.secret(),
-            loginStyle = "redirect";
-            //loginStyle = OAuth._loginStyle(Okta.serviceName, config, options);
+            loginStyle = "redirect";   //other option is "popup" which opens a pop up window
+
 
         OAuth.launchLogin({
             loginService: Okta.serviceName,
@@ -60,12 +60,12 @@ var getLoginUrlOptions = function(loginStyle, credentialToken, config, options) 
     var loginUrlParameters = {};
     // First insert the ServiceConfiguration values
     if (config.loginUrlParameters){
-        _.extend(loginUrlParameters, config.loginUrlParameters)
+        _.extend(loginUrlParameters, config.loginUrlParameters);
     }
     // Secondly insert the options that were inserted with the function call,
     // so they will override any ServiceConfiguration
     if (options.loginUrlParameters){
-        _.extend(loginUrlParameters, options.loginUrlParameters)
+        _.extend(loginUrlParameters, options.loginUrlParameters);
     }
     // Make sure no url parameter was used as an option or config
     var illegal_parameters = ['response_type', 'client_id', 'scope', 'redirect_uri', 'state'];
@@ -77,7 +77,8 @@ var getLoginUrlOptions = function(loginStyle, credentialToken, config, options) 
 
     //in your router get the initial url the user is trying to access and
     //redirect the user back to that uri on successful authentication
-    fromWhere = Session.get('fromWhere') || '';
+    //in this case user is being redirected to /library/processes
+    fromWhere = Session.get('fromWhere') || '/library/processes';
     //delete the leading / because Meteor.absouluteURL adds one too
     fromWhere = fromWhere.replace('/','');
     options.redirectUrl = Meteor.absoluteUrl(fromWhere);

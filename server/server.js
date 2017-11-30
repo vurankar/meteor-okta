@@ -26,9 +26,9 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
             scope: response.scope
         };
 
-        console.log("okta user profile:" + JSON.stringify(identity));
+        //console.log("okta user profile:" + JSON.stringify(identity));
 
-    /*
+    /*  ***IMP****
     Meteor accounts requires id field but Okta does not provide an id attribute.
     Make sure to map a field of you convinence as id field. In my setup I have created an
     custom attribute called id
