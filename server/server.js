@@ -15,6 +15,8 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
         throw new ServiceConfiguration.ConfigError();
     }
 
+    config.secret = Meteor.settings.private.oAuth.oktaSecret;
+
     var response = getTokens(query, config),
         expiresAt = (+new Date) + (1000 * parseInt(response.expiresIn, 10)),
         identity = getIdentity(response.accessToken, config),
@@ -34,7 +36,7 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
     custom attribute called id
      */
     if(!identity.id){
-        throw new Error("Missing id field in okta profile");
+        throw new (Meteor.Error)(401, "Missing id field in okta profile");
     }
 
     _.extend(serviceData, identity);
