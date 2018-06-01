@@ -7,7 +7,7 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.2.1');
+  api.versionsFrom('1.6.0.1');
   api.use('ecmascript');
   api.use('templating', 'client');
   api.use('random', 'client');
@@ -22,5 +22,3 @@ Package.onUse(function(api) {
   api.addFiles('server/server.js', 'server');
   api.addFiles(['client/client.js', 'client/configure.js'], 'client');
 });
-
-
