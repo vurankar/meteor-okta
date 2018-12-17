@@ -16,7 +16,7 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
     }
 
     //To avoid storing app secret in the database, the secret is stored in a seperate variable.
-    config.secret = Meteor.settings.OktaApi.appOauthSecret;
+    config.secret = process.env.OKTA_OAUTH_SECRET;
 
     var response = getTokens(query, config),
         expiresAt = (+new Date) + (1000 * parseInt(response.expiresIn, 10)),
