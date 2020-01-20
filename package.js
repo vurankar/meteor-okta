@@ -1,13 +1,13 @@
 Package.describe({
-  name: 'vurankar:okta',
+  name: 'riffyn:okta',
   version: '0.1.0',
   summary: 'An implementation of the Okta OAuth flow.',
-  git: 'https://github.com/vurankar/meteor-okta',
+  git: 'https://github.com/RiffynInc/meteor-okta',
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.2.1');
+  api.versionsFrom('1.8.0.2');
   api.use('ecmascript');
   api.use('templating', 'client');
   api.use('random', 'client');
@@ -22,5 +22,3 @@ Package.onUse(function(api) {
   api.addFiles('server/server.js', 'server');
   api.addFiles(['client/client.js', 'client/configure.js'], 'client');
 });
-
-

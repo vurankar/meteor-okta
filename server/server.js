@@ -15,6 +15,9 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
         throw new ServiceConfiguration.ConfigError();
     }
 
+    //To avoid storing app secret in the database, the secret is stored in a seperate variable.
+    config.secret = process.env.OKTA_OAUTH_SECRET;
+
     var response = getTokens(query, config),
         expiresAt = (+new Date) + (1000 * parseInt(response.expiresIn, 10)),
         identity = getIdentity(response.accessToken, config),
@@ -33,8 +36,12 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
     Make sure to map a field of you convinence as id field. In my setup I have created an
     custom attribute called id
      */
+    if( identity && identity.riffynId){
+        identity.id = identity.riffynId;
+    }
+
     if(!identity.id){
-        throw new Error("Missing id field in okta profile");
+        throw new (Meteor.Error)(401, "Missing id/riffynId field in okta profile");
     }
 
     _.extend(serviceData, identity);
