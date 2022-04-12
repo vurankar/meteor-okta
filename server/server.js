@@ -36,12 +36,12 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
     Make sure to map a field of you convinence as id field. In my setup I have created an
     custom attribute called id
      */
-    if( identity && identity.riffynId){
-        identity.id = identity.riffynId;
+    if( identity && identity.id){
+        identity.id = identity.id;
     }
 
     if(!identity.id){
-        throw new (Meteor.Error)(401, "Missing id/riffynId field in okta profile");
+        throw new (Meteor.Error)(401, "Missing id field in okta profile");
     }
 
     _.extend(serviceData, identity);

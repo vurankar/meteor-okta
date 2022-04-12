@@ -1,8 +1,8 @@
 Package.describe({
-  name: 'riffyn:okta',
+  name: 'vurankar:okta',
   version: '0.1.0',
   summary: 'An implementation of the Okta OAuth flow.',
-  git: 'https://github.com/RiffynInc/meteor-okta',
+  git: 'https://github.com/vurankar/meteor-okta',
   documentation: 'README.md'
 });
 
