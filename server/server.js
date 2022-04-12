@@ -41,7 +41,7 @@ OAuth.registerService(Okta.serviceName, 2, null, function(query) {
     }
 
     if(!identity.id){
-        throw new (Meteor.Error)(401, "Missing id/riffynId field in okta profile");
+        throw new (Meteor.Error)(401, "Missing id field in okta profile");
     }
 
     _.extend(serviceData, identity);
